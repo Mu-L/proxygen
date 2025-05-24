@@ -297,9 +297,9 @@ void initializeTransportSettings(HQToolParams& hqUberParams) {
   hqParams.transportSettings.advertisedInitialMaxStreamsUni = 100;
 
   if (FLAGS_use_ack_receive_timestamps) {
-    hqParams.transportSettings.maybeAckReceiveTimestampsConfigSentToPeer.assign(
-        {.maxReceiveTimestampsPerAck = FLAGS_max_ack_receive_timestamps_to_send,
-         .receiveTimestampsExponent = kDefaultReceiveTimestampsExponent});
+    hqParams.transportSettings.maybeAckReceiveTimestampsConfigSentToPeer = {
+        .maxReceiveTimestampsPerAck = FLAGS_max_ack_receive_timestamps_to_send,
+        .receiveTimestampsExponent = kDefaultReceiveTimestampsExponent};
   }
   hqParams.transportSettings.datagramConfig.enabled = true;
 
@@ -338,7 +338,6 @@ void initializeHttpServerSettings(HQToolServerParams& hqParams) {
   hqParams.httpServerIdleTimeout = std::chrono::milliseconds(60000);
   hqParams.httpServerShutdownOn = {SIGINT, SIGTERM};
   hqParams.httpServerEnableContentCompression = false;
-  hqParams.h2cEnabled = false;
   hqParams.httpVersion.parse(FLAGS_httpversion);
   hqParams.txnTimeout = std::chrono::milliseconds(FLAGS_txn_timeout);
 } // initializeHttpServerSettings
